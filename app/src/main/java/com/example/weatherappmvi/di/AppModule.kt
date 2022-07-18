@@ -1,11 +1,7 @@
 package com.example.weatherappmvi.di
 
 import android.app.Application
-import com.example.weatherappmvi.data.location.DefaultLocationTracker
 import com.example.weatherappmvi.data.remote.WeatherApi
-import com.example.weatherappmvi.data.repository.WeatherRepositoryImpl
-import com.example.weatherappmvi.domain.location.LocationTracker
-import com.example.weatherappmvi.domain.repository.WeatherRepository
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import dagger.Module
@@ -24,7 +20,7 @@ object AppModule
 
     @Provides
     @Singleton
-    fun provideWeatherApi() : WeatherApi {
+    fun provideWeatherApi(): WeatherApi {
         return Retrofit.Builder()
             .baseUrl("https://api.open-meteo.com/")
             .addConverterFactory(MoshiConverterFactory.create())
