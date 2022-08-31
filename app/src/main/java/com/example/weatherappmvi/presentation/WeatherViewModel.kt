@@ -9,6 +9,7 @@ import com.example.weatherappmvi.domain.location.LocationTracker
 import com.example.weatherappmvi.domain.repository.WeatherRepository
 import com.example.weatherappmvi.domain.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -16,7 +17,8 @@ import javax.inject.Inject
 class WeatherViewModel @Inject constructor(
     private val repository: WeatherRepository,
     private val locationTracker: LocationTracker
-) : ViewModel() {
+): ViewModel() {
+
     var state by mutableStateOf(WeatherState())
         private set
 

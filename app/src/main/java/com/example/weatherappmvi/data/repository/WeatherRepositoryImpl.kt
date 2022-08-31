@@ -1,5 +1,7 @@
 package com.example.weatherappmvi.data.repository
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.example.weatherappmvi.data.mapper.toWeatherInfo
 import com.example.weatherappmvi.data.remote.WeatherApi
 import com.example.weatherappmvi.domain.repository.WeatherRepository
@@ -9,19 +11,20 @@ import java.lang.Exception
 import javax.inject.Inject
 
 class WeatherRepositoryImpl @Inject constructor(
-    private val weatherApi: WeatherApi
-) : WeatherRepository {
+    private val api: WeatherApi
+): WeatherRepository {
+    @RequiresApi(Build.VERSION_CODES.O)
     override suspend fun getWeatherData(lat: Double, long: Double): Resource<WeatherInfo> {
         return try {
             Resource.Success(
-                data = weatherApi.getWeatherData(
-                    lat = lat, long = long
+                data = api.getWeatherData(
+                    lat = lat,
+                    long = long
                 ).toWeatherInfo()
             )
-
-        }catch (e: Exception){
+        } catch(e: Exception) {
             e.printStackTrace()
-            Resource.Error(e.message ?: "An unknown error occurred")
+            Resource.Error(e.message ?: "An unknown error occurred.")
         }
     }
 }
